@@ -1,3 +1,5 @@
 .vs
-fomin-server-console/bin
-fomin-server-console/obj
+fomin-server/bin
+fomin-server/obj
+fomin-server/Properties
+.idea

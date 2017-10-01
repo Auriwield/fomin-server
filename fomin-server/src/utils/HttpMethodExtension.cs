@@ -1,7 +1,7 @@
 ﻿using System;
-using fominwebsocketserver.src.http;
+using fomin_server.http;
 
-namespace fominwebsocketserver.src.utils
+namespace fomin_server.utils
 {
     public static class HttpMethodExtension
     {

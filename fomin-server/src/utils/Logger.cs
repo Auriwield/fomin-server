@@ -1,7 +1,6 @@
 ﻿using System;
-using fominwebsocketserver.src.utils;
 
-namespace fominwebsocketserver.src
+namespace fomin_server.utils
 {
     public static class Logger
     {
@@ -31,15 +30,16 @@ namespace fominwebsocketserver.src
         {
             if (args != null && args.NotEmpty())
                 message = string.Format(message, args);
+            var temp = Console.ForegroundColor;
 
             switch (level)
             {
                 case LogLevel.Debug:
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
 
                 case LogLevel.Info:
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     break;
 
                 case LogLevel.Warning:
@@ -50,7 +50,10 @@ namespace fominwebsocketserver.src
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
             }
-            Console.Write("[{0}] {1}", level.ToString(), message);
+
+            Console.WriteLine("[{0}] {1}", level, message);
+
+            Console.ForegroundColor = temp;
         }
     }
 

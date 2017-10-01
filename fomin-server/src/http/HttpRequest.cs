@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using fominwebsocketserver.src.core;
-using fominwebsocketserver.src.utils;
+using fomin_server.core;
+using fomin_server.utils;
 
-namespace fominwebsocketserver.src.http
+namespace fomin_server.http
 {
     public class HttpRequest : IRequest
     {
@@ -16,26 +16,37 @@ namespace fominwebsocketserver.src.http
         public IDictionary<string, string> Parameters { get; }
         public string Content { get; }
         public string Raw { get; }
+        public bool IsValid { get; }
 
         public HttpRequest(string rawRequest)
         {
             Raw = rawRequest + "";
-            string[] requestsStrings = rawRequest.Split(new[] { "\r\n" }, StringSplitOptions.None);
-            var str = requestsStrings[0].Split(' ');
-            var method = str[0].ToLower();
-            HttpMethod = HttpMethodExtension.IdentifyHttpMethod(method);
-            Url = str[1].ToLower();
-            HttpVersion = str[2].ToLower().Equals("http/1.1") ? HttpVersion.Http11 : HttpVersion.Http10;
+            if (rawRequest.IsEmpty()) return;
+            try
+            {
+                string[] requestsStrings = rawRequest.Split(new[] {"\r\n"}, StringSplitOptions.None);
+                var str = requestsStrings[0].Split(' ');
+                var method = str[0].ToLower();
+                HttpMethod = HttpMethodExtension.IdentifyHttpMethod(method);
+                Url = str[1].ToLower();
+                HttpVersion = str[2].ToLower().Equals("http/1.1") ? HttpVersion.Http11 : HttpVersion.Http10;
 
-            var headAndBody = rawRequest.Split(new[] {"\r\n\r\n"}, StringSplitOptions.None);
-            var fields = GetFields(headAndBody[0]);
-            UserAgent = fields["user-agent"];
-            Host = fields["host"];
-            fields.Remove("user-agent");
-            fields.Remove("host");
-            Headers = fields;
-            Parameters = GetParameters(Url);
-            Content = headAndBody[1];
+                var headAndBody = rawRequest.Split(new[] {"\r\n\r\n"}, StringSplitOptions.None);
+                var fields = GetFields(headAndBody[0]);
+                UserAgent = fields["user-agent"];
+                Host = fields["host"];
+                fields.Remove("user-agent");
+                fields.Remove("host");
+                Headers = fields;
+                Parameters = GetParameters(Url);
+                Content = headAndBody[1];
+            }
+            catch (Exception e)
+            {
+                Logger.E(e.ToString());
+            }
+
+            IsValid = true;
         }
 
         public IDictionary<string, string> GetFields(string rawRequest)

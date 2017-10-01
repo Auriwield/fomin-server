@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using fominwebsocketserver.src.core;
-using fominwebsocketserver.src.utils;
+using fomin_server.utils;
 
-namespace fominwebsocketserver.src
+namespace fomin_server.core
 {
     public class Server : IServer
     {
@@ -27,7 +26,7 @@ namespace fominwebsocketserver.src
         {
             _server.Bind(IpEndpoint);
             _server.Listen(Timeout);
-            Console.WriteLine("Server listen on " + IpEndpoint);
+            Logger.I("Server listen on " + IpEndpoint);
             while (true)
             {
                 Socket client = _server.Accept();
@@ -38,13 +37,17 @@ namespace fominwebsocketserver.src
                 do
                 {
                     len = client.Receive(_buffer);
-                    request += _buffer.ToString(len);
+                    request += _buffer.StringValue(len);
                 } while (len == _buffer.Length);
 
-                Logger.I(request);
+                //Logger.I(request);
 
                 var response = _handleRequestDelegate.HandleRequest(request);
-                client.Send(response.ToByteArray());
+
+                //Logger.I(response);
+
+                client.Send(response);
+                client.Close();
             }
         }
 

@@ -1,10 +1,11 @@
 ﻿using System;
+using fomin_server.utils;
 
-namespace fominwebsocketserver.src.core
+namespace fomin_server.core
 {
     public interface IHandleRequestDelegate
     {
-        string HandleRequest(string rawRequest);
+        byte[] HandleRequest(string rawRequest);
     }
 
     public class SimpleHandleRequestDelegate : IHandleRequestDelegate
@@ -16,9 +17,9 @@ namespace fominwebsocketserver.src.core
             _callback = callback;
         }
 
-        public string HandleRequest(string rawRequest)
+        public byte[] HandleRequest(string rawRequest)
         {
-            return _callback.Invoke(rawRequest);
+            return _callback.Invoke(rawRequest).ToByteArray();
         }
     }
 }

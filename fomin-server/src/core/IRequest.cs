@@ -1,4 +1,4 @@
-﻿namespace fominwebsocketserver.src.core
+﻿namespace fomin_server.core
 {
     public interface IRequest
     {

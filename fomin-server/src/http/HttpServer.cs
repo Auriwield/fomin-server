@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net;
+using fomin_server.core;
 
-namespace fominwebsocketserver.src.http
+namespace fomin_server.http
 {
     public class HttpServer : IServer
     {
@@ -17,6 +18,11 @@ namespace fominwebsocketserver.src.http
         public void ListenUrl(string url, Func<HttpRequest, HttpResponse> callback)
         {
             _httpAccessDelegate.ListenUrl(url, callback);
+        }
+
+        public void AddMiddleware(IHttpMiddleware middleware)
+        {
+            _httpAccessDelegate.AddMiddleware(middleware);
         }
 
         public void Start()
