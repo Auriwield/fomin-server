@@ -21,7 +21,8 @@ namespace fomin_server.http
         public HttpRequest(string rawRequest)
         {
             Raw = rawRequest + "";
-            if (rawRequest.IsEmpty()) return;
+            if (rawRequest.IsEmpty())
+                return;
             try
             {
                 string[] requestsStrings = rawRequest.Split(new[] {"\r\n"}, StringSplitOptions.None);

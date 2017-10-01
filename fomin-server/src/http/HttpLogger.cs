@@ -17,11 +17,11 @@ namespace fomin_server.http
             {
                 if (request.Raw.IsEmpty())
                 {
-                    Logger.E("Empty request\n");
+                    Logger.E("Empty request");
                 }
                 else
                 {
-                    Logger.E("Invalid request\n" + request.Raw + "\n");
+                    Logger.E("Invalid request\n" + request.Raw);
                 }
             }
 
@@ -32,7 +32,7 @@ namespace fomin_server.http
             }
             else
             {
-                Logger.E(response.Raw.StringValue() + "\n");
+                Logger.E(response.Raw.StringValue());
             }
         }
     }

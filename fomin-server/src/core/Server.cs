@@ -29,21 +29,28 @@ namespace fomin_server.core
             Logger.I("Server listen on " + IpEndpoint);
             while (true)
             {
-                Socket client = _server.Accept();
-
-                string request = "";
-                int len;
-
-                do
+                try
                 {
-                    len = client.Receive(_buffer);
-                    request += _buffer.StringValue(len);
-                } while (len == _buffer.Length);
+                    Socket client = _server.Accept();
 
-                var response = _handleRequestDelegate.HandleRequest(request);
+                    string request = "";
+                    int len;
 
-                client.Send(response);
-                client.Close();
+                    do
+                    {
+                        len = client.Receive(_buffer);
+                        request += _buffer.StringValue(len);
+                    } while (len == _buffer.Length);
+
+                    var response = _handleRequestDelegate.HandleRequest(request);
+
+                    client.Send(response);
+                    client.Close();
+                }
+                catch (Exception e)
+                {
+                    Logger.E(e.Message);
+                }
             }
         }
 
