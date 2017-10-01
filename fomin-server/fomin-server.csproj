@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="public\fomin\index.html" />
     <Content Include="public\index.html" />
     <Content Include="public\site\daisy.jpg" />
     <Content Include="public\site\index.html" />
