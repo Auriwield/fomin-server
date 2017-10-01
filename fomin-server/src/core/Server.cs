@@ -40,11 +40,7 @@ namespace fomin_server.core
                     request += _buffer.StringValue(len);
                 } while (len == _buffer.Length);
 
-                //Logger.I(request);
-
                 var response = _handleRequestDelegate.HandleRequest(request);
-
-                //Logger.I(response);
 
                 client.Send(response);
                 client.Close();

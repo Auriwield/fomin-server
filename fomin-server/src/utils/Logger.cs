@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace fomin_server.utils
 {
     public static class Logger
     {
+        public static bool PrintTime = true;
+
         public static void D(string message, params object[] args)
         {
             Log(message, args, LogLevel.Debug);
@@ -51,9 +54,33 @@ namespace fomin_server.utils
                     break;
             }
 
-            Console.WriteLine("[{0}] {1}", level, message);
+            string callInfo = "";
+
+            StackTrace stackTrace = new StackTrace(0, true);
+            var stackFrames = stackTrace.GetFrames();
+            if (stackFrames != null)
+            {
+                StackFrame frame = stackFrames[2];
+                var methodBase = frame.GetMethod();
+                Type clazz = methodBase.DeclaringType;
+
+                if (clazz != null)
+                {
+                    callInfo = $"/{clazz.Name}({frame.GetFileLineNumber()})";
+                }
+                
+            }
+            
+            Console.WriteLine("{0}{1}{2}: {3}", GetTimestamp(DateTime.Now), 
+                level.ToString().ToUpper(), callInfo, message);
 
             Console.ForegroundColor = temp;
+        }
+
+        public static string GetTimestamp(DateTime value)
+        {
+            if (!PrintTime) return "";
+            return value.ToString("MM-dd HH:mm:ss.ffff") + ": ";
         }
     }
 

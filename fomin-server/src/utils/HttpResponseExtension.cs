@@ -2,7 +2,7 @@
 
 namespace fomin_server.utils
 {
-    public static class HttpResponseCodeExtension
+    public static class HttpResponseExtension
     {
         public static string StringValue(this ResponseCode responseCode)
         {
@@ -20,6 +20,11 @@ namespace fomin_server.utils
                 case ResponseCode.InternalServerError: return "200 OK";
                 default: return "501 NOT IMPLEMENTED";
             }
+        }
+
+        public static string StringValue(this HttpVersion httpVersion)
+        {
+            return httpVersion == HttpVersion.Http11 ? "HTTP/1.1" : "HTTP/1.0";
         }
     }
 }

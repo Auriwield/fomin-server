@@ -21,6 +21,8 @@ namespace fomin_server
             );
 
             httpServer.AddMiddleware(new HttpMiddleware());
+            httpServer.AddMiddleware(new HttpLogger());
+
 
             httpServer.Start();
         }

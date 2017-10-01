@@ -11,7 +11,7 @@ namespace fomin_server.http
             get
             {
                 string response = "";
-                response += HttpVersion == HttpVersion.Http11 ? "HTTP/1.1 " : "HTTP/1.0 ";
+                response += HttpVersion.StringValue() + " ";
                 response += ResponseCode.StringValue();
                 response += "\r\n";
                 // response += "Content-Type: text/html; charset=utf-8\r\n";

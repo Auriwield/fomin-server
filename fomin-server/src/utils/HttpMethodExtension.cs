@@ -5,7 +5,7 @@ namespace fomin_server.utils
 {
     public static class HttpMethodExtension
     {
-        public static string ToString(this HttpMethod httpMethod)
+        public static string StringValue(this HttpMethod httpMethod)
         {
             switch (httpMethod)
             {

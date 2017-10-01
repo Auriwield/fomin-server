@@ -7,6 +7,8 @@ namespace fomin_server.http
 {
     class HttpAccessDelegate : IHandleRequestDelegate
     {
+        public const string MimeTypeAll = "*";
+
         private readonly IDictionary<string, Func<HttpRequest, HttpResponse>> _requestMap;
         private readonly List<IHttpMiddleware> _middlewareMap;
 
@@ -67,7 +69,7 @@ namespace fomin_server.http
 
             foreach (var middleware in _middlewareMap)
             {
-                if (middleware.MimeType.Equals(httpResponse.ContentType))
+                if (middleware.MimeType.Equals(httpResponse.ContentType) || middleware.MimeType.Equals(MimeTypeAll))
                 {
                     middleware.Render(request, httpResponse);
                 }

@@ -50,6 +50,7 @@
     <Compile Include="src\core\IServer.cs" />
     <Compile Include="src\core\Server.cs" />
     <Compile Include="src\http\HttpAccessDelegate.cs" />
+    <Compile Include="src\http\HttpLogger.cs" />
     <Compile Include="src\http\HttpRequest.cs" />
     <Compile Include="src\http\HttpResponse.cs" />
     <Compile Include="src\http\HttpServer.cs" />
@@ -57,7 +58,7 @@
     <Compile Include="src\http\IHttpMiddleware.cs" />
     <Compile Include="src\utils\ConversionUtils.cs" />
     <Compile Include="src\utils\HttpMethodExtension.cs" />
-    <Compile Include="src\utils\HttpResponseCodeExtension.cs" />
+    <Compile Include="src\utils\HttpResponseExtension.cs" />
     <Compile Include="src\utils\Logger.cs" />
     <Compile Include="src\utils\MimeTypeUtils.cs" />
     <Compile Include="src\utils\TypeExtensions.cs" />
